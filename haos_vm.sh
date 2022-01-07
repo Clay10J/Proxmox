@@ -81,7 +81,7 @@ fi
 info "Using '$STORAGE' for storage location."
 VMID=$(pvesh get /cluster/nextid)
 if [[ "$1" != "" ]]; then
-  VMID=$1
+  VMID=${$1}
 fi
 info "Container ID is $VMID."
 echo -e "\e[1;33m Getting URL for latest Home Assistant disk image... \e[0m"
