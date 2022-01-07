@@ -8,6 +8,19 @@ while true; do
         * ) echo "Please answer yes or no.";;
     esac
 done
+VMID=$(pvesh get /cluster/nextid)
+while getopts "i:" OPTION
+do
+	case $OPTION in
+		i)
+			echo "The value of -i is $OPTARG"
+			VMID=$OPTARG
+			;;
+		*)
+			echo "Used for the help menu"
+			;;
+	esac
+done
 set -o errexit
 set -o errtrace
 set -o nounset
@@ -79,19 +92,6 @@ else
   done
 fi
 info "Using '$STORAGE' for storage location."
-VMID=$(pvesh get /cluster/nextid)
-while getopts "i:" OPTION
-do
-	case $OPTION in
-		i)
-			echo "The value of -i is $OPTARG"
-			VMID=$OPTARG
-			;;
-		*)
-			echo "Used for the help menu"
-			;;
-	esac
-done
 info "Container ID is $VMID."
 echo -e "\e[1;33m Getting URL for latest Home Assistant disk image... \e[0m"
 RELEASE_TYPE=qcow2
